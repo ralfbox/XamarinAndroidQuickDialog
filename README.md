@@ -56,8 +56,8 @@ namespace Sample{
 
 
 ## License
-Copyright (c) 2016, Rafa³ Pude³ko
+Copyright (c) 2016, Rafal Pudelko
 
-You should but you don't have to mention it in application UI with string **"Used QuickQialog (c) 2016, Rafa³ Pude³ko"** (e.g. in "About" section).
+You should but you don't have to mention it in application UI with string **"Used QuickQialog (c) 2016, Rafal Pudelko"** (e.g. in "About" section).
 
 Licensed under the [BSD 3-clause](http://www.opensource.org/licenses/BSD-3-Clause)
