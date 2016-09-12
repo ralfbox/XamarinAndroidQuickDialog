@@ -54,10 +54,12 @@ namespace QuickDialogLibrary.Support.V7 {
                 try {
                     method.Invoke(Details.O, BuildResult(method));
                 } catch (Exception e) {
-                    Log.Error("QuickDialog", "Cannot invoke method: " + method.Name, e);
+                    Log.Error("QuickDialog", "Cannot invoke method: " + method.Name + "   " + e.Message, e.Message);
                 }
             }
         }
+
+        
 
         private object[] BuildResult(MethodInfo method) {
             ParameterInfo[] parameters = method.GetParameters();

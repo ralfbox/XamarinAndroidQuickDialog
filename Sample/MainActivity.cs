@@ -11,12 +11,12 @@ namespace Sample {
 
     [Activity(Label = "App1", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyTheme")]
     public class MainActivity: AppCompatActivity {
-        private const int QD_REQUEST_ALERT_1 = 1;
+        private const int QD_REQUEST_ALERT_1 = 3;
         private const int QD_ALERT_2 = 2;
 
 
-        protected override void OnCreate(Bundle bundle) {
-            base.OnCreate(bundle);           
+        protected override void OnCreate(Bundle savedInstanceState) {
+            base.OnCreate(savedInstanceState);           
             SetContentView(Resource.Layout.Main);
             Button button = FindViewById<Button>(Resource.Id.MyButton);
             button.Click += delegate {
@@ -41,8 +41,10 @@ namespace Sample {
                     .Show(SupportFragmentManager, "err");
             };
 
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Frame1, Fragment1.newInstance("Fragment 1")).Commit();
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Frame2, Fragment1.newInstance("Fragment 2")).Commit();
+            if (savedInstanceState == null) {
+                SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Frame1, Fragment1.newInstance("Fragment 1")).Commit();
+                SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Frame2, Fragment1.newInstance("Fragment 2"), "qwerty").Commit();
+            }
         }
 
         private void ShowText(string text) {

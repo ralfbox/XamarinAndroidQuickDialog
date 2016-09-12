@@ -39,3 +39,6 @@ captures/
 # Keystore files
 *.jks
 /.vs/XamarinQuickDialog/v14/.suo
+/Library/obj/Debug
+/packages
+/Sample/obj/Debug

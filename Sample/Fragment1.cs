@@ -1,5 +1,4 @@
 using Android.OS;
-using Android.Renderscripts;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
@@ -13,9 +12,14 @@ namespace Sample {
 
     public class Fragment1: Fragment {
 
-        private string Name;
-
         public const int QD_REQUEST_ALERT_1 = 1;
+
+        private string Name;
+        private int CounterPositive = 0;
+        private int CounterNegative = 0;
+
+        private Button bt;
+
 
         public override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
@@ -24,42 +28,69 @@ namespace Sample {
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View v = inflater.Inflate(Resource.Layout.FragmentView, container, false);
-            v.FindViewById(Resource.Id.MyButton).Click += delegate {
-                new QuickDialog.Builder(this, QD_REQUEST_ALERT_1)
+            (bt = v.FindViewById<Button>(Resource.Id.MyButton)).Click += OnButtonClick;
+
+            if(savedInstanceState != null) {
+                CounterPositive = savedInstanceState.GetInt("pos");
+                CounterNegative = savedInstanceState.GetInt("neg");
+            }
+            ReloadTextButton();
+            return v;
+        }
+
+        private void ReloadTextButton() {
+            bt.Text = "Positive: " + CounterPositive + ";   Negative: " + CounterNegative;
+        }
+
+        public override void OnSaveInstanceState(Bundle outState) {
+            base.OnSaveInstanceState(outState);
+            outState.PutInt("pos", CounterPositive);
+            outState.PutInt("neg", CounterNegative);
+        }
+
+
+
+        private void OnButtonClick(object sender, EventArgs e) {
+            //Create AlertDialog
+             new QuickDialog.Builder(this, QD_REQUEST_ALERT_1)
                         .Title("fragmentName: " + Name)
                         .PositiveButton("positive")
                         .NegativeButton("negative")
                         .Controller(typeof(ControllerAlert))
-                        .Build().Show(FragmentManager, "err");
-            };
-            
-            return v;
+                        .Show(FragmentManager, "err");
         }
 
+//Method for positive button
         [PositiveButtonQD(QD_REQUEST_ALERT_1)]
-        private void OnPositiveButtonClick(ControllerAlert controller, QuickDialog qd) {
-            ShowText("Positive button clicked: " + controller.EditText.Text + "\n" + qd.ToString() + "\n\n");
+        public void OnPositiveButtonClick(ControllerAlert controller, QuickDialog qd) {
+            CounterPositive++;
+            ReloadTextButton();
+            string text = controller.EditText.Text;
+            if (text.Length > 0)
+                ShowText("Writen text: " + controller.EditText.Text);
         }
 
+//Mehtod for negative button 
         [NegativeButtonQD(QD_REQUEST_ALERT_1)]
-        private void OnNegativeButtonClick() {
-            try {
-                System.Type t = System.Type.GetType("Sample.Fragment1");
-                var o = Activator.CreateInstance(t);
-
-                ShowText("Negative button clicked\n" + o.ToString());
-            }catch (Exception ee) {
-                ShowText("Err: " + ee.Message);
-            }
+        public void OnNegativeButtonClick() {
+            CounterNegative++;
+            ReloadTextButton();
         }
 
+//Method for cancel dialog
         [CancelQD(QD_REQUEST_ALERT_1)]
         private void OnCancell() {
             ShowText("Dialog cancelled");
         }
 
+
+
+
+
+
+
         private void ShowText(string text) {
-            Toast.MakeText(Context, text + "\nFragmentName: " + Name, ToastLength.Long).Show();
+            Toast.MakeText(Activity, text, ToastLength.Long).Show();
         }
 
 
@@ -79,9 +110,8 @@ namespace Sample {
         public override AlertDialog.Builder CreatingAlertDialogBuilder(AlertDialog.Builder builder) {
             View v = LayoutInflater.Inflate(Resource.Layout.get_text_alert, null);
             EditText = v.FindViewById<EditText>(Resource.Id.ed1);
-            builder.SetView(v);            
+            builder.SetView(v);
             return builder;
         }
-
     }
 }
