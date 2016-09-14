@@ -3,7 +3,6 @@ using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
-using QuickDialogLibrary.Listeners;
 using QuickDialogLibrary.Support.V7;
 using System;
 

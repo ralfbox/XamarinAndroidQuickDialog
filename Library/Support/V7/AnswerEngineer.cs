@@ -1,26 +1,29 @@
 using System;
 
 using Android.Content;
-using QuickDialogLibrary.Listeners;
 using System.Reflection;
 using Android.Util;
 using QuickDialogLibrary.Core;
 using System.Collections.Generic;
 
 namespace QuickDialogLibrary.Support.V7 {
+
     internal class AnswerEngineer {
+
         private readonly MethodSearcherQDDetails Details;
         private readonly QuickDialog QuickDialog;
+        private readonly BundleQD BundleQD;
 
 
-        public AnswerEngineer(QuickDialog builder) {
-            this.QuickDialog = builder;
-            object responseToObj = GetObjectForResponse(builder);
-            int request = builder.BundleQD.Request;
+        public AnswerEngineer(QuickDialog qd) {
+            QuickDialog = qd;
+            BundleQD = qd.BundleQD;
+            object responseToObj = GetObjectForResponse(qd);
+            int request = qd.BundleQD.Request;
             Details = new MethodSearcherQDDetails(responseToObj, request);
         }
 
-        private object GetObjectForResponse(QuickDialog qd) {
+        private static object GetObjectForResponse(QuickDialog qd) {
             BundleQD args = qd.BundleQD;
             if (!args.ResponseToFragment)
                 return qd.Activity;
@@ -33,15 +36,22 @@ namespace QuickDialogLibrary.Support.V7 {
 
 
         public void NeutralButtonClick(object sender, DialogClickEventArgs e) {
-            InvokeMethod<NeutralButtonQD>();
+            if (BundleQD.FinishIfNeutralBTClicked) FinishActivity();
+            else InvokeMethod<NeutralButtonQD>();
         }
 
         public void NegativeClick(object sender, DialogClickEventArgs e) {
-            InvokeMethod<NegativeButtonQD>();
+            if (BundleQD.FinishIfNegativeBTClicked) FinishActivity();
+            else InvokeMethod<NegativeButtonQD>();
         }
 
         public void PositiveButtonClick(object sender, DialogClickEventArgs e) {
-            InvokeMethod<PositiveButtonQD>();
+            if (BundleQD.FinishIfPositiveBTClicked) FinishActivity();
+            else InvokeMethod<PositiveButtonQD>();
+        }
+
+        private void FinishActivity() {
+            QuickDialog.Activity.Finish();
         }
 
         public void OnCancel(IDialogInterface dialog) {

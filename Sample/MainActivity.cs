@@ -4,7 +4,6 @@ using Android.Widget;
 using Android.OS;
 using QuickDialogLibrary.Support.V7;
 using Android.Support.V7.App;
-using QuickDialogLibrary.Listeners;
 
 namespace Sample {
 

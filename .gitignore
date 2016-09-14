@@ -42,3 +42,5 @@ captures/
 /Library/obj/Debug
 /packages
 /Sample/obj/Debug
+/Library/obj/Release
+/Sample/obj/Release

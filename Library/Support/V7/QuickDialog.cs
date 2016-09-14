@@ -113,6 +113,11 @@ namespace QuickDialogLibrary.Support.V7 {
 
             public Builder Cancellable(bool cancellable) { args.Cancellable = cancellable; return this; }
 
+            public Builder FinishActivityIfPositiveBTClicked() { args.FinishIfPositiveBTClicked = true; return this; }
+            public Builder FinishActivityIfNegativeBTClicked() { args.FinishIfNegativeBTClicked = true; return this; }
+            public Builder FinishActivityIfNeutralBTClicked() { args.FinishIfNeutralBTClicked = true; return this; }
+
+
             public Builder Controller(System.Type type) {
                 if (!type.IsSubclassOf(typeof(ControllerQD)))
                     throw new System.ArgumentException("The type must subclass of ControllerQD");

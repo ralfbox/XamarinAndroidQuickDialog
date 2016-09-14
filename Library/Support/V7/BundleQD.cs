@@ -20,6 +20,9 @@ namespace QuickDialogLibrary {
         private readonly static string ARG_FRAGMENT_RESPONSE_ID = "fragment-response-id";
 
         private readonly static string ARG_CONTROLLER = "controller-namespace.name";
+        private readonly static string ARG_FINISH_POSITIVE = "finish-positive";
+        private readonly static string ARG_FINISH_NEGATIVE = "finish-negative";
+        private readonly static string ARG_FINISH_NEUTRAL = "finish-neutral";
 
 
         public readonly Bundle Args;
@@ -93,6 +96,21 @@ namespace QuickDialogLibrary {
                 return System.Type.GetType(name);
             }
             set { SetStr(ARG_CONTROLLER, value.AssemblyQualifiedName); }
+        }
+
+        public bool FinishIfPositiveBTClicked {
+            get { return Args.GetBoolean(ARG_FINISH_POSITIVE, false); }
+            set { Args.PutBoolean(ARG_FINISH_POSITIVE, value); }
+        }
+
+        public bool FinishIfNegativeBTClicked {
+            get { return Args.GetBoolean(ARG_FINISH_NEGATIVE, false); }
+            set { Args.PutBoolean(ARG_FINISH_NEGATIVE, value); }
+        }
+
+        public bool FinishIfNeutralBTClicked {
+            get { return Args.GetBoolean(ARG_FINISH_NEUTRAL, false); }
+            set { Args.PutBoolean(ARG_FINISH_NEUTRAL, value); }
         }
 
         private void SetStr(string key, string value) {

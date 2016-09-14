@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="Support\V7\AnswerEngineer.cs" />
     <Compile Include="Support\V7\BundleQD.cs" />
-    <Compile Include="Listeners\Attributes.cs" />
+    <Compile Include="Support\V7\Attributes.cs" />
     <Compile Include="Core\MethodSearcher.cs" />
     <Compile Include="Support\V7\ControllerQD.cs" />
     <Compile Include="Support\V7\QuickDialog.cs" />

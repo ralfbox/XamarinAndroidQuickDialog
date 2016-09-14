@@ -10,7 +10,7 @@ So I decided to write a library that makes it easy to create Alert dialog with s
 Install `Xamarin.Android.Support.v7.AppCompat` from `NuGet Package Manager`  
 (`Tools -> NuGet Package Manager -> Manage NuGet Packages For Solution...`)  
 
-Download `QuickDialogLibrary.dll` and add to your solution.  
+Download [`QuickDialogLibrary.dll`](https://raw.githubusercontent.com/ralfbox/XamarinAndroidQuickDialog/master/_Download/QuickDialogLibrary.dll) and add to your solution.  
 (`Solution Explorer -> your solution -> References (click right mouse) -> Add Reference -> Browse... -> select quickDialogLibrary.dll`)
 
   

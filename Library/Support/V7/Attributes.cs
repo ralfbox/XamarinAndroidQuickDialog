@@ -1,6 +1,6 @@
 
 
-namespace QuickDialogLibrary.Listeners {
+namespace QuickDialogLibrary.Support.V7 {
 
     public abstract class AttributeQuickDialog: System.Attribute {
         public readonly int Request;
